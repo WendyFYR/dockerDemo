@@ -8,7 +8,7 @@ node("master") {
     }
 
     stage ('Artifactory configuration') {
-        rtMaven.tool = '64maven' // Tool name from Jenkins configuration
+        rtMaven.tool = 'Maven' // Tool name from Jenkins configuration
         rtMaven.deployer releaseRepo: 'maven_local', snapshotRepo: 'maven_local', server: server
         buildInfo = Artifactory.newBuildInfo()
     }
