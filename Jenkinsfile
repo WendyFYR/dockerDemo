@@ -1,4 +1,4 @@
-node("docker-64") {
+node("master") {
     def server = Artifactory.newServer url: "http://9.98.12.105:8081/artifactory", credentialsId: 'jfrog artifactory'
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
