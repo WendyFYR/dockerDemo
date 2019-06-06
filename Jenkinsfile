@@ -17,19 +17,21 @@ node("master") {
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
 
-    stage ('Publish build info') {
-        server.publishBuildInfo buildInfo
-    }
     
     stage ('Xray Scan') {
         def xrayconfig = [
         'buildName'   :  env.JOB_NAME,
         'buildNumber' :  env.BUILD_NUMBER,
-        'failBuild'   : false
+        'failBuild'   : true
         ]
         
         def xrayResults = server.xrayScan xrayconfig
         echo xrayResults as String
         sleep 10
+    }
+    
+    
+    stage ('Publish build info') {
+        server.publishBuildInfo buildInfo
     }
 }
