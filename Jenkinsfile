@@ -17,6 +17,9 @@ node("master") {
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
 
+        stage ('Publish build info') {
+        server.publishBuildInfo buildInfo
+    }
     
     stage ('Xray Scan') {
         def xrayconfig = [
@@ -31,7 +34,5 @@ node("master") {
     }
     
     
-    stage ('Publish build info') {
-        server.publishBuildInfo buildInfo
-    }
+
 }
