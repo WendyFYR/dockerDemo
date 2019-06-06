@@ -20,4 +20,16 @@ node("master") {
     stage ('Publish build info') {
         server.publishBuildInfo buildInfo
     }
+    
+    stage ('Xray Scan') {
+        def xrayconfig = [
+        'buildName'   : env.JOB_NAME
+        'buildNumber' : env.BUILD_NUMBER
+        'failBuild'   : false
+        ]
+        
+        def xrayResults = server.xrayScan xrayconfig
+        echo xrayResults as String
+        sleep 10
+    }
 }
