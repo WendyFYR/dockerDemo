@@ -25,7 +25,7 @@ node("master") {
         def xrayconfig = [
         'buildName'   :  env.JOB_NAME,
         'buildNumber' :  env.BUILD_NUMBER,
-        'failBuild'   :  true
+        'failBuild'   :  false
         ]
         
         def xrayResults = server.xrayScan xrayconfig
