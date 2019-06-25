@@ -24,10 +24,21 @@ node("master") {
         stage ('Exec Maven') {
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
-
+    
+    
         stage ('Publish build info') {
         server.publishBuildInfo buildInfo
     }
+
+    stage('build docker'){
+			steps {
+				echo "start build image"
+				dir('sso-client1') {
+ 					bat 'docker build -t liangyun/dockerdemo:1.0 .'
+				 
+			}
+		}
+    
     
     stage ('Xray Scan') {
         def xrayconfig = [
